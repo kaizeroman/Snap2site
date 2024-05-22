@@ -62,7 +62,7 @@ def setHFAttributes(data, total_height, total_width):
                 'x': 0,
                 'y': pred['y'],
                 'width': total_width,
-                'height': pred['height']
+                'height': total_height-pred['x']
             }
             data.remove(pred)
 
@@ -100,7 +100,7 @@ def map_components(prediction):
   width = prediction['width']
   x = prediction['x']
   y = prediction['y']
-  style = f"position: absolute; left: {x}px; top: {y}px; height: {height if cls == 'navbar' and height < 50 else height}px; width: {width}px;"
+  style = f"position: absolute; left: {x}px; top: {y}px; height: {50 if cls == "navbar" else height}px; width: {width}px;"
   navbar_a = "float: left; display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none;"
 
   mapping = {
