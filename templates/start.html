@@ -12,6 +12,10 @@
             justify-content: center;
             margin: 0;
             font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='bg.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
         }
         h1 {
             color: #ddd6d6;
@@ -49,12 +53,11 @@
         .image-preview-container {
             margin-top: 10px;
             width: 100%;
-            height: 100px;
+            height: 400px;
             overflow-y: auto;
             border: 2px solid #ddd;
             border-radius: 10px;
             max-width: 800px;
-            height: 400px;
             background-color: #ddd6d6;
         }
         .image-preview-container img {
@@ -65,21 +68,25 @@
             text-align: center;
             font-family: 'Courier New', Courier, monospace;
         }
-        form a button {
+        .continue-button {
             margin-top: 20px;
-            width: 150px;
-            height: 50px;
-            padding: 5px;
-            border-radius: 5px;
-            font-family: 'Courier New', Courier;
-            font-style: initial;
+            padding: 15px 30px;
             font-size: 20px;
-            border-style: double;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 2px double #007BFF;
+            background-color: transparent;
             cursor: pointer;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .continue-button:hover {
+            background-color: #f0f0f0;
+            color: black;
         }
     </style>
 </head>
-<body style="background-image: url('{{ url_for('static', filename='bg.jpg') }}');">
+<body>
     <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
     <h1>Snap2Site</h1>
 
@@ -93,32 +100,45 @@
         </div>
     </div>
 
+    <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+        <input type="hidden" name="image_data" id="imageData">
+        <button type="button" class="continue-button" onclick="submitForm()">Continue</button>
+    </form>
+    
     <script>
-        function submitForm() {
-            const imageData = document.getElementById('imagePreview').src;
-            document.getElementById('imageData').value = imageData;
-            document.querySelector('form').submit();
-        }
         document.getElementById('imageUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const imagePreview = document.getElementById('imagePreview');
-                    const ipc = document.getElementById('ipc');
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    ipc.style.display = 'none';
-                };
+                    const previewImage = document.getElementById('imagePreview');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    document.getElementById('ipc').style.display = 'none';
+                    document.getElementById('imageData').value = e.target.result;
+                }
                 reader.readAsDataURL(file);
             }
         });
-    </script>
 
-    <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="image_data" id="imageData">
-        <a href="#" onclick="submitForm()"><button type="button">Continue</button></a>
-    </form>
+        function submitForm() {
+            const form = document.getElementById('uploadForm');
+            const formData = new FormData(form);
+            formData.append('image_data', document.getElementById('imageData').value);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.open();
+                document.write(html);
+                document.close();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 
 
 </body>
