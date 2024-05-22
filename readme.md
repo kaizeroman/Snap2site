@@ -44,7 +44,7 @@ Snap2Site is a web application that allows users to upload images, process them,
 7. Once edited, your final Snap2Site webpage html code and preview is displayed
 
 ## Folder Structure
-.
+```.
 └── SNAP2SITE/
     ├── static/
     │   ├── logo.png
@@ -56,6 +56,7 @@ Snap2Site is a web application that allows users to upload images, process them,
     ├── app.py
     ├── README.md
     └── unseen-set/
+```
 
 ## Files
 - index.html: Introduces the website to the user, serves as the landing page of the website
