@@ -1,11 +1,13 @@
 import roboflow
 import os
 from PIL import Image
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 import base64
 import io
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'uploads/'
 
 @app.route('/')
 def home():
@@ -243,7 +245,7 @@ def processImage(image):
     header_components = []
     footer_components = []
     if hasHeader: header_components = setComponents(data, header_attr)
-    if hasFooter: footer_components = setComponents(data)
+    if hasFooter: footer_components = setComponents(data, footer_attr)
     if hasHeader or hasFooter: main_components = [preds for preds in data if preds not in header_components and preds not in footer_components] 
     else: main_components = data
     header_output = []
@@ -283,8 +285,16 @@ def generate():
 
     # Now you can proceed with processing the image data as needed
     result = processImage(image_path)  # Example function for processing the image
+    
+    file_object = open("uploads/InitialResult.html", "w")
+    file_object.write(result)
+    file_object.close()
+    
     return render_template('generate.html', result=result)
 
+@app.route('/uploads/<filename>')
+def uploads(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

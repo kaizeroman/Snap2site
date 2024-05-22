@@ -44,6 +44,11 @@
             text-align: center;
             padding: 30px;
         }
+        .box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
         .box:first-child{
             overflow-y: auto;
             overflow-x: auto;
@@ -76,11 +81,117 @@
             <p>{{ result }}</p>
         {% endif %}
         </div>
-        <div class="box">
+        <div class="box"> <!-- Preview -->
+            <iframe id="myIframe" src="{{ url_for('uploads', filename='Initialresult.html') }}" frameborder="0"></iframe>
         </div>
-        <div class="box">
+        <div class="box"> <!-- Customization(Buttons // etc ) -->
+            <h2>Color Scheme</h2>
+            <label for="Header-color">Header Color</label>
+            <select id="header-color">
+                <option value="" disabled selected>choose Header Color</option>
+                <option value="#AC92EB">Purple</option>
+                <option value="#4FC1E8">Teal</option>
+                <option value="#A0D568">Light Green</option>
+                <option value="#FFCE54">Yellow</option>
+                <option value="#ED5564">PINK RED</option>
+                <!-- Add more-->
+            </select>
+
+            <label for="body-color">Header Color</label>
+            <select id="body-color">
+                <option value="" disabled selected>choose body Color</option>
+                <option value="#AC92EB">Purple</option>
+                <option value="#4FC1E8">Teal</option>
+                <option value="#A0D568">Light Green</option>
+                <option value="#FFCE54">Yellow</option>
+                <option value="#ED5564">PINK RED</option>
+                <!-- Add more-->
+            </select>
+
+            <label for="footer-color">Header Color</label>
+            <select id="footer-color">
+                <option value="" disabled selected>choose footer color</option>
+                <option value="#AC92EB">Purple</option>
+                <option value="#4FC1E8">Teal</option>
+                <option value="#A0D568">Light Green</option>
+                <option value="#FFCE54">Yellow</option>
+                <option value="#ED5564">PINK RED</option>
+                <!-- Add more-->
+            </select>
+
+            <h2>Font Customization</h2>
+            <label for="header-font">choose headers font</label>
+            <select id="header-font">
+                <option value="" disabled selected>choose headers font</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <!-- Add more-->
+            </select>
+
+            <label for="body-font">choose main font</label>
+            <select id="body-font">
+                <option value="" disabled selected>choose headers font</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <!-- Add more-->
+            </select>
+
+            <label for="footer-font">choose footer font</label>
+            <select id="footer-font">
+                <option value="" disabled selected>choose footer font</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <!-- Add more -->
+            </select>
+
         </div>
     </div>
-    <a href="{{ url_for('start') }}"><button>Customize</button></a>
+    <button id='custButton' onclick="customize()">Customize</button>
+    <button id='downloadbutt' onclick="downloadFile()">Download template</button>
+    <script>
+        function customize() {
+                console.log('Clicked');
+                var headerFont = document.getElementById("header-font").value;
+                var bodyFont = document.getElementById("body-font").value;
+                var footerFont = document.getElementById("footer-font").value;
+                var headercolor = document.getElementById("header-color").value;
+                var bodycolor = document.getElementById("body-color").value;
+                var footercolor = document.getElementById("footer-color").value;
+
+                var iframe = document.getElementById('myIframe');
+
+                // Access the document inside the iframe
+                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+                console.log(innerDoc)
+
+                // Modify the styles in the document
+                innerDoc.querySelector('header').style.fontFamily = headerFont;
+                console.log(innerDoc.querySelector('header').style.fontFamily)
+                innerDoc.querySelector('body').style.fontFamily = bodyFont;
+                innerDoc.querySelector('footer').style.fontFamily = footerFont;
+                innerDoc.querySelector('header').style.backgroundColor = headercolor
+                innerDoc.querySelector('footer').style.backgroundColor = footercolor
+                innerDoc.querySelector('body').style.backgroundColor = bodycolor
+
+                console.log(innerDoc.value)
+            };
+        function downloadFile() {
+            var iframe = document.getElementById('myIframe');
+            var Content = iframe.contentDocument || iframe.contentWindow.document;
+            var iframeContent = Content.documentElement.outerHTML;
+            var file = new File(["\ufeff"+iframeContent], 'Template.html', {type: "text/plain:charset=UTF-8"});
+            url = window.URL.createObjectURL(file);
+
+            var a = document.createElement("a");
+            a.style = "display: none";
+            a.href = url;
+            a.download = file.name;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>         
 </body>
 </html>
