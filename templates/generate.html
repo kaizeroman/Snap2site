@@ -76,7 +76,7 @@
     <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
     <h1>Snap2Site</h1>
     <div class="outerbox">
-        <div class="box">
+        <div class="box" id='htmlText'>
         {% if result %}
             <p>{{ result }}</p>
         {% endif %}
@@ -97,7 +97,7 @@
                 <!-- Add more-->
             </select>
 
-            <label for="body-color">Header Color</label>
+            <label for="body-color">Body Color</label>
             <select id="body-color">
                 <option value="" disabled selected>choose body Color</option>
                 <option value="#AC92EB">Purple</option>
@@ -108,7 +108,7 @@
                 <!-- Add more-->
             </select>
 
-            <label for="footer-color">Header Color</label>
+            <label for="footer-color">Footer Color</label>
             <select id="footer-color">
                 <option value="" disabled selected>choose footer color</option>
                 <option value="#AC92EB">Purple</option>
@@ -168,15 +168,35 @@
                 console.log(innerDoc)
 
                 // Modify the styles in the document
-                innerDoc.querySelector('header').style.fontFamily = headerFont;
-                console.log(innerDoc.querySelector('header').style.fontFamily)
+                
                 innerDoc.querySelector('body').style.fontFamily = bodyFont;
-                innerDoc.querySelector('footer').style.fontFamily = footerFont;
-                innerDoc.querySelector('header').style.backgroundColor = headercolor
-                innerDoc.querySelector('footer').style.backgroundColor = footercolor
                 innerDoc.querySelector('body').style.backgroundColor = bodycolor
 
-                console.log(innerDoc.value)
+                if (innerDoc.querySelector('header') != null && innerDoc.querySelector('header') != undefined){
+                    innerDoc.querySelector('header').style.backgroundColor = headercolor
+                    innerDoc.querySelector('header').style.fontFamily = headerFont;
+                }
+                if (innerDoc.querySelector('footer') != null && innerDoc.querySelector('footer') != undefined){
+                    innerDoc.querySelector('footer').style.backgroundColor = footercolor
+                    innerDoc.querySelector('footer').style.fontFamily = footerFont;
+                }
+                
+                var iframe = document.getElementById('myIframe');
+                var Content = iframe.contentDocument || iframe.contentWindow.document;
+                var iframeContent = Content.documentElement.outerHTML;
+
+                var htmlTextDiv = document.getElementById('htmlText');
+                var result = iframeContent;
+                if (htmlTextDiv) {
+                    htmlTextDiv.innerHTML = ''; // Clear existing content
+                    if (result) {
+                        var paragraph = document.createElement('p');
+                        paragraph.textContent = result;
+                        htmlTextDiv.appendChild(paragraph);
+                    }
+                } else {
+                    console.log("Div with id 'htmlText' not found.");
+                }
             };
         function downloadFile() {
             var iframe = document.getElementById('myIframe');
