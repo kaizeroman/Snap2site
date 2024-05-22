@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page</title>
+    <style>
+         body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #ddd6d6;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 5px;
+        }
+
+        .logo {
+            position: relative;
+            top: 20px;
+            width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='bg.jpg') }}');">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+    <h1>Snap2Site</h1>
+    <h1>Welcome to the New Page</h1>
+    <p>This is the new page.</p>
+</body>
+</html>

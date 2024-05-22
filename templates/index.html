@@ -1,14 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Simple Flask App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Logo and Box</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #ddd6d6;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 5px;
+        }
+
+        .logo {
+            position: relative;
+            top: 20px;
+            width: 200px;
+            height: auto;
+        }
+        .box {
+            width: 550px;
+            height: 280px;
+            background-color: #ddd6d6;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10%;
+            border-style: double;
+            font-family: 'Courier New', Courier;
+            font-size: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            width: 200px;
+            height: auto;
+            padding: 20px;
+            border-radius: 20%;
+            font-family: 'Courier New', Courier;
+            font-style: initial;
+            font-size: 20px;
+            border-style: double;
+        }
+    </style>
 </head>
-<body>
-    <h1>Welcome to the Simple Flask App</h1>
-    <form action="/submit" method="post">
-        <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name">
-        <input type="submit" value="Submit">
-    </form>
+<body style="background-image: url('{{ url_for('static', filename='bg.jpg') }}');">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+    <h1>Snap2Site</h1>
+    <div class="box">
+        <h3>Experience the future of web design with Snap2Site</h3>
+        <p>Snap2Site is an innovative solution that automates the conversion of webpage screenshots into HTML code, integrating digital branding effortlessly. By leveraging YOLOv8, Snap2Site transforms web development, making it faster, and more efficient.</p>
+    </div>
+    <a href="{{ url_for('start') }}"><button>Get Started</button></a>
 </body>
 </html>
