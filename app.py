@@ -243,7 +243,7 @@ def processImage(image):
     header_components = []
     footer_components = []
     if hasHeader: header_components = setComponents(data, header_attr)
-    if hasFooter: footer_components = setComponents(data)
+    if hasFooter: footer_components = setComponents(data, footer_attr)
     if hasHeader or hasFooter: main_components = [preds for preds in data if preds not in header_components and preds not in footer_components] 
     else: main_components = data
     header_output = []

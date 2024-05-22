@@ -44,7 +44,7 @@ Snap2Site is a web application that allows users to upload images, process them,
 7. Once edited, your final Snap2Site webpage html code and preview is displayed
 
 ## Folder Structure
-SNAP2SITE/
+SNAP2SITE/ 
 │
 ├── static/             # Static assets (images)
 │   └── logo.png
