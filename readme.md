@@ -57,6 +57,7 @@ SNAP2SITE/
 │   └── snap2site-result.html
 │
 ├── app.py              # Flask application
+<<<<<<< HEAD
 ├── README.md           # Project documentation
 │
 └── unseen-set/             # Unseen dataset(website screenshots)
@@ -69,3 +70,14 @@ SNAP2SITE/
 - generate.html: Displays the html code and preview of the webpage template, and enables the user to add color palette and fonts for  the template
 
 - app.py: contains the backend part of the website using Flask
+=======
+└── README.md           # Project documentation
+│
+├── unseen-set/             # Unseen dataset(website screenshots)
+
+## Files
+index.html - Introduces the website to the user, serves as the landing page of the website
+start.html - Enables users to upload a screenshot of the webpage they want to transform to a template
+generate.html - Displays the html code and preview of the webpage template, and enables the user to add color palette and fonts for  the template
+app.py - contains the backend part of the website using Flask
+>>>>>>> be6f6c1dfffbb35bc108647c5ba0c3782a16b994
