@@ -44,22 +44,19 @@ Snap2Site is a web application that allows users to upload images, process them,
 7. Once edited, your final Snap2Site webpage html code and preview is displayed
 
 ## Folder Structure
-SNAP2SITE/ 
-│
-├── static/             # Static assets (images)
-│   └── logo.png
-│   └── bg.png
-│
-├── templates/          # HTML codes
-│   └── generate.html
-│   └── index.html
-│   └── start.html
-│   └── snap2site-result.html
-│
-├── app.py              # Flask application
-├── README.md           # Project documentation
-│
-└── unseen-set/         # Unseen dataset (website screenshots)
+```.
+└── SNAP2SITE/
+    ├── static/
+    │   ├── logo.png
+    │   └── bg.png
+    ├── template/
+    │   ├── generate.html
+    │   ├── index.html
+    │   └── start.html
+    ├── app.py
+    ├── README.md
+    └── unseen-set/
+```
 
 ## Files
 - index.html: Introduces the website to the user, serves as the landing page of the website
